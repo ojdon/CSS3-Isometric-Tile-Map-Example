@@ -18,25 +18,25 @@ function updatePreview() { //Update the preview tile
 
 updatePreview(); //Init "Update Preview" method
 
+var transformCursor = function($el, rotate, skewX, skewY) {
+	$el.css({
+		"-webkit-transform": "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
+		"-webkit-transform": "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
+		"-moz-transform"   : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
+		"-o-transform"     : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
+		"-ms-transform"    : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
+		"transform"        : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)"
+	})
+};
+
 function updateCursor() { //Method to change cursor shape to match current tile
+	var $cursor = $('.cursor');
 	if(currentTile === 1) {
-		$('.cursor').css("-webkit-transform", "rotate(-15deg) skew(-15deg, -15deg)");
-		$('.cursor').css("-moz-transform", "rotate(-15deg) skew(-15deg, -15deg)");
-		$('.cursor').css("-o-transform", "rotate(-15deg) skew(-15deg, -15deg)");
-		$('.cursor').css("-ms-transform", "rotate(-15deg) skew(-15deg, -15deg)");
-		$('.cursor').css("transform", "rotate(-15deg) skew(-15deg, -15deg)");
+		transformCursor($cursor, -15, -15, -15);
 	} else if(currentTile === 2) {
-		$('.cursor').css("-webkit-transform", "rotate(15deg) skew(15deg, 15deg)");
-		$('.cursor').css("-moz-transform", "rotate(15deg) skew(15deg, 15deg)");
-		$('.cursor').css("-o-transform", "rotate(15deg) skew(15deg, 15deg)");
-		$('.cursor').css("-ms-transform", "rotate(15deg) skew(15deg, 15deg)");
-		$('.cursor').css("transform", "rotate(15deg) skew(15deg, 15deg)");
+		transformCursor($cursor, 15, 15, 15);
 	} else {
-		$('.cursor').css("-webkit-transform", "rotate(-45deg) skew(15deg, 15deg)");
-		$('.cursor').css("-moz-transform", "rotate(-45deg) skew(15deg, 15deg)");
-		$('.cursor').css("-o-transform", "rotate(-45deg) skew(15deg, 15deg)");
-		$('.cursor').css("-ms-transform", "rotate(-45deg) skew(15deg, 15deg)");
-		$('.cursor').css("transform", "rotate(-45deg) skew(15deg, 15deg)");
+		transformCursor($cursor, -45, 15, 15);
 	}
 }
 
