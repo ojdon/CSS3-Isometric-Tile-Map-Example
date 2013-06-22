@@ -5,14 +5,17 @@ var currentTile = 0, currentColor = 0;
 
 $('<div class="cursor"></div>').appendTo('body'); //Add cursor
 
+var $cursor = $('.cursor');
+
 function updatePreview() { //Update the preview tile
-	if($('.preview').is(':has(.tile)')) {
+	var $preview = $('.preview');
+	if($preview.is(':has(.tile)')) {
 		$(".preview .tile:last-child").remove();
 	}
 	if(currentTile === 1) {
-		$(".preview").append('<div class="tile '+ tileID[currentTile] + '" style="display: block; position: relative; background: #' + shadowID[currentColor] +';"></div>');
+		$preview.append('<div class="tile '+ tileID[currentTile] + '" style="display: block; position: relative; background: #' + shadowID[currentColor] +';"></div>');
 	} else {
-		$(".preview").append('<div class="tile '+ tileID[currentTile] + '" style="display: block; position: relative; background: #' + colorID[currentColor] +';"></div>');
+		$preview.append('<div class="tile '+ tileID[currentTile] + '" style="display: block; position: relative; background: #' + colorID[currentColor] +';"></div>');
 	}
 }
 
@@ -30,7 +33,6 @@ var transformCursor = function($el, rotate, skewX, skewY) {
 };
 
 function updateCursor() { //Method to change cursor shape to match current tile
-	var $cursor = $('.cursor');
 	if(currentTile === 1) {
 		transformCursor($cursor, -15, -15, -15);
 	} else if(currentTile === 2) {
@@ -40,7 +42,7 @@ function updateCursor() { //Method to change cursor shape to match current tile
 	}
 }
 
-$(".cursor").on('click', function(e) { //OnClick method (Place Tile)
+$cursor.on('click', function(e) { //OnClick method (Place Tile)
 	if(currentTile === 1) { //If left wall apply shadow color
 		$('<div class="tile '+ tileID[currentTile] + '" style="background: #' + shadowID[currentColor] +'; left:' + (e.pageX - 32) + 'px; top:' + (e.pageY - 32)+ 'px;"></div>').appendTo('body');
 	} else {
@@ -49,16 +51,19 @@ $(".cursor").on('click', function(e) { //OnClick method (Place Tile)
 });
 
 $(function(){
-	$('.tileInfo').html("<p>Tile: "+ tileID[currentTile] +"</p>"); //Set tile label
+	var $tileInfo = $('.tileInfo'), $colorInfo = $('.colorInfo');
+
+	$tileInfo.html("<p>Tile: "+ tileID[currentTile] +"</p>"); //Set tile label
+
 	$(".tileNext").on('click', function(e) { //Cycle through available tiles
 		if(currentTile < tileID.length - 1) {
 			currentTile++;
 		} else {
-			currentTile= 0;
+			currentTile = 0;
 		}
 		updateCursor();
 		updatePreview();
-		$('.tileInfo').html("<p>Tile: "+ tileID[currentTile] +"</p>");
+		$tileInfo.html("<p>Tile: "+ tileID[currentTile] +"</p>");
 	});
 	$(".tilePrevious").on('click', function(e) { //Cycle back through available tiles
 		console.log(currentTile);
@@ -69,19 +74,19 @@ $(function(){
 		}
 		updateCursor();
 		updatePreview();
-		$('.tileInfo').html("<p>Tile: "+ tileID[currentTile] +"</p>");
+		$tileInfo.html("<p>Tile: "+ tileID[currentTile] +"</p>");
 	});
 
-	$('.colorInfo').html("<p>Color: #"+ colorID[currentColor] +"</p>"); //Set color label
+	$colorInfo.html("<p>Color: #"+ colorID[currentColor] +"</p>"); //Set color label
 	$(".colorNext").on('click', function(e) { //Cycle through available colors
 		if(currentColor < colorID.length - 1) { 
 			currentColor++;
 		} else {
-			currentColor= 0;
+			currentColor = 0;
 		}
 		updateCursor();
 		updatePreview();
-		$('.colorInfo').html("<p>Color: #"+ colorID[currentColor] +"</p>");
+		$colorInfo.html("<p>Color: #"+ colorID[currentColor] +"</p>");
 	});
 	$(".colorPrevious").on('click', function(e) { //Cycle back through available colors
 		if(currentColor > 0) {
@@ -91,12 +96,12 @@ $(function(){
 		}
 		updateCursor();
 		updatePreview();
-		$('.colorInfo').html("<p>Color: #"+ colorID[currentColor] +"</p>");
+		$colorInfo.html("<p>Color: #"+ colorID[currentColor] +"</p>");
 	});
 });
 
 $(document).bind('mousemove', function(e){ //Cursor should follow mouse position (Subtracting origin)
-    $('.cursor').css({
+    $cursor.css({
        left:  e.pageX - 32,
        top:   e.pageY - 32
     });
