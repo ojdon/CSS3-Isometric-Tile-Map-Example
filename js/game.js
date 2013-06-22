@@ -66,7 +66,6 @@ $(function(){
 		$tileInfo.html("<p>Tile: "+ tileID[currentTile] +"</p>");
 	});
 	$(".tilePrevious").on('click', function(e) { //Cycle back through available tiles
-		console.log(currentTile);
 		if(currentTile > 0) {
 			currentTile--;
 		} else {
