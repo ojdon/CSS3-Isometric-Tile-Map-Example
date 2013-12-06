@@ -29,7 +29,7 @@ var transformCursor = function($el, rotate, skewX, skewY) {
 		"-o-transform"     : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
 		"-ms-transform"    : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)",
 		"transform"        : "rotate("+rotate+"deg) skew("+skewX+"deg, "+skewY+"deg)"
-	})
+	});
 };
 
 function updateCursor() { //Method to change cursor shape to match current tile
